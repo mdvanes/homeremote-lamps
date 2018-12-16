@@ -10,6 +10,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",
+    "type-coverage": "^1.6.2",
     "typescript": "^3.2.2"
   },
   "engines": {
@@ -20,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "type-coverage": "type-coverage --detail"
   },
   "eslintConfig": {
     "extends": "react-app"

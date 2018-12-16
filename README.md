@@ -3,9 +3,10 @@ Experiment to rewrite the lightswitches component of Homeremote
 
 ## Target stack
 
-* CRA https://github.com/facebook/create-react-app
-* TypeScript
+* :heavy_check_mark: CRA https://github.com/facebook/create-react-app
+* :heavy_check_mark: TypeScript
 * Apollo-GraphQL for API and Local state management in the UI
+* Type coverage with https://www.npmjs.com/package/type-coverage (not working yet)
 * Node + Express
 * optional: Styled Components
 
