@@ -16,3 +16,4 @@ Experiment to rewrite the lightswitches component of Homeremote
 * https://www.apollographql.com/docs/react/essentials/local-state.html
 * https://blog.apollographql.com/the-future-of-state-management-dd410864cae2
 * https://graphql-code-generator.com/ by Uri Goldshtein
+* No `jsx` extension: https://github.com/facebook/create-react-app/issues/87 and https://github.com/facebook/create-react-app/releases/tag/v0.4.1. However `tsx` extension is still needed.
