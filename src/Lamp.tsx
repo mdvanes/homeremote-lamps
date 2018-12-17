@@ -1,4 +1,5 @@
 import React, {SFC} from 'react';
+import './Lamp.css';
 
 interface IProps {
   name: string;
@@ -6,13 +7,8 @@ interface IProps {
 }
 
 const Lamp: SFC<IProps> = ({name, isOn}) => (
-  <div style={{
+  <div className="lamp" style={{
     backgroundColor: isOn ? 'darkgreen' : 'darkred',
-    border: '1px solid black',
-    color: '#ddd',
-    display: 'inline-block',
-    margin: '0.2rem',
-    padding: '0.3rem'
   }}>
     {name}
   </div>);
