@@ -1,19 +1,19 @@
-import React from 'react';
+import React, {SFC} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import LampList from './LampList';
 
-/* TODO what is the type of App? */
-/* This is the style used instead of SFC */
-const App = () => {
-  return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <LampList></LampList>
-        </header>
-      </div>
-  );
-};
+const App: SFC = () => (
+  <div className="App">
+    <header className="App-header" style={
+      {
+        minHeight: 'auto'
+      }
+    }>
+      <img src={logo} className="App-logo" alt="logo" />
+    </header>
+    <LampList />
+  </div>
+);
 
 export default App;
