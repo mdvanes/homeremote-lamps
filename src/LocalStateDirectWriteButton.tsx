@@ -1,4 +1,4 @@
-import React, {FC, Fragment} from 'react';
+import React, {FC} from 'react';
 import {ApolloConsumer, Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';

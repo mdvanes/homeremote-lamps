@@ -5,14 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import {defaults, resolvers} from './resolvers'
 
 const client = new ApolloClient({
   uri: "https://w5xlvm3vzz.lp.gql.zone/graphql",
   clientState: {
-    defaults: {
-      logger: 'Initial logger'
-    },
-    resolvers: {}
+    defaults,
+    resolvers
   }
 });
 
