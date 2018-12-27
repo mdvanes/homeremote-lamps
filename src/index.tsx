@@ -7,7 +7,13 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 const client = new ApolloClient({
-  uri: "https://w5xlvm3vzz.lp.gql.zone/graphql"
+  uri: "https://w5xlvm3vzz.lp.gql.zone/graphql",
+  clientState: {
+    defaults: {
+      logger: 'Initial logger'
+    },
+    resolvers: {}
+  }
 });
 
 // client

@@ -1,9 +1,10 @@
-import React, {SFC} from 'react';
+import React, {FC} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import LampList from './LampList';
+import LocalStateDirectWriteButton from './LocalStateDirectWriteButton';
 
-const App: SFC = () => (
+const App: FC = () => (
   <div className="App">
     <header className="App-header" style={
       {
@@ -12,6 +13,9 @@ const App: SFC = () => (
     }>
       <img src={logo} className="App-logo" alt="logo" />
     </header>
+    <p>These cards share the same state store</p>
+    <LocalStateDirectWriteButton />
+    <LocalStateDirectWriteButton />
     <LampList />
   </div>
 );
