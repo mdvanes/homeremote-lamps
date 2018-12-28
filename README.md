@@ -1,6 +1,12 @@
 # homeremote-lamps
 Experiment to rewrite the lightswitches component of Homeremote
 
+## Running
+
+* Run `nvm use` in both `/server` and `/client`
+* Run `yarn` in both `/server` and `/client`
+* Run `yarn start` in both `/server` and `/client`
+
 ## Target stack
 
 * :heavy_check_mark: CRA https://github.com/facebook/create-react-app

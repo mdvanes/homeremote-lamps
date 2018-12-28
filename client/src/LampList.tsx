@@ -15,7 +15,8 @@ const LampList = () => (
   <Query
     query={gql`
       {
-        rates(currency: "USD") {
+        # rates(currency: "USD") {
+        rates {
           currency
           rate
         }
