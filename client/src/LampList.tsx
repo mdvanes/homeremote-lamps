@@ -3,9 +3,9 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Lamp from './Lamp';
 
-interface IRate {
-  currency: string;
-  rate: number;
+interface ILamp {
+  name: string;
+  size: number;
 }
 
 /* Using the open Currency API to emulate a back-end for
@@ -16,9 +16,12 @@ const LampList = () => (
     query={gql`
       {
         # rates(currency: "USD") {
-        rates {
-          currency
-          rate
+        #  currency
+        #  rate
+        #}
+        lamps(room:"Living") {
+          name
+          size
         }
       }
     `}
@@ -27,8 +30,8 @@ const LampList = () => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
 
-      return data.rates.map(({ currency: name, rate }: IRate) => {
-        const isOn: boolean = rate > 8;
+      return data.lamps.map(({ name, size }: ILamp) => {
+        const isOn: boolean = size > 8;
         return (<Lamp key={name} name={name} isOn={isOn} />
       )});
     }}

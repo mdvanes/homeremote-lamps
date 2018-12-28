@@ -30,13 +30,48 @@ const rates = [
   }
 ];
 
+const lamps = [
+  {
+    id: 0,
+    room: 'Living',
+    name: 'TV',
+    size: 10
+  },
+  {
+    id: 1,
+    room: 'Living',
+    name: 'Bookcase',
+    size: 10
+  },
+  {
+    id: 2,
+    room: 'Living',
+    name: 'Reading',
+    size: 3
+  },
+  {
+    id: 3,
+    room: 'Kitchen',
+    name: 'Main',
+    size: 20
+  },
+  {
+    id: 4,
+    room: 'Kitchen',
+    name: 'Cupboard',
+    size: 2
+  },
+];
+
 // Resolvers define the technique for fetching the types in the
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Query: {
     books: () => books,
     rates: () => rates,
-    rate: (_, {id}) => rates.filter(r => r.id === id)[0]
+    rate: (_, {id}) => rates.filter(r => r.id === id)[0],
+    lamps: (_, {room}) => lamps.filter(l => l.room === room),
+    lamp: (_, {id}) => lamps.filter(l => l.id === id)[0]
   },
 };
 
