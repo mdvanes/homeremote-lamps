@@ -8,7 +8,7 @@ import { ApolloProvider } from 'react-apollo';
 import {defaults, resolvers} from './resolvers'
 
 const client = new ApolloClient({
-  uri: "https://w5xlvm3vzz.lp.gql.zone/graphql",
+  uri: "http://localhost:4000",
   clientState: {
     defaults,
     resolvers
