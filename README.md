@@ -11,6 +11,7 @@ Experiment to rewrite the lightswitches component of Homeremote
 * Node + Express https://www.apollographql.com/docs/apollo-server/getting-started.html
 * :heavy_check_mark: optional: Styled Components
 * Add a REST call: https://github.com/apollographql/apollo-link-rest/blob/master/README.md
+* Observables are very well possible with GraphQL. Apollo is all-in-one solution for modern web: types, observables, local state, REST, GraphQL 
 
 ## Resources
 
