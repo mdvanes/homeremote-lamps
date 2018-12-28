@@ -47,7 +47,7 @@ const App: FC = () => (
     <LocalStateDirectWriteButton />
     <LocalStateDirectWriteButton />
     <hr/>
-    {/*<LampList />*/}
+    <LampList />
   </div>
 );
 
