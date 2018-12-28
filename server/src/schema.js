@@ -17,6 +17,13 @@ const typeDefs = gql`
     currency: String
     rate: Int
   }
+  
+  type Lamp {
+    id: Int
+    room: String
+    name: String
+    size: Int
+  }
 
   # The "Query" type is the root of all GraphQL queries.
   # (A "Mutation" type will be covered later on.)
@@ -25,6 +32,8 @@ const typeDefs = gql`
     rates: [Rate]
     #rate(id: ID!): Rate
     rate(id: Int): Rate
+    lamps(room: String): [Lamp]
+    lamp(id: Int): Lamp
   }
 `;
 
