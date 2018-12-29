@@ -12,11 +12,11 @@ Experiment to rewrite the lightswitches component of Homeremote
 * :heavy_check_mark: CRA https://github.com/facebook/create-react-app
 * :heavy_check_mark: TypeScript
 * :heavy_check_mark: Apollo-GraphQL for API
+* :heavy_check_mark: Node + Express https://www.apollographql.com/docs/apollo-server/getting-started.html
+* :heavy_check_mark: optional: Styled Components
 * Apollo-GraphQL for Local state management in the UI @ https://www.apollographql.com/docs/react/essentials/local-state.html#queries
 * Type coverage with https://www.npmjs.com/package/type-coverage (seems to just give a list of missing type path+positions)
-* Node + Express https://www.apollographql.com/docs/apollo-server/getting-started.html
-* :heavy_check_mark: optional: Styled Components
-* Add a REST call: https://github.com/apollographql/apollo-link-rest/blob/master/README.md
+* Add a REST call: https://github.com/apollographql/apollo-link-rest/
 * Observables are very well possible with GraphQL. Apollo is all-in-one solution for modern web: types, observables, local state, REST, GraphQL 
 
 ## Resources
