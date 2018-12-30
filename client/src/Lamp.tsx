@@ -13,7 +13,7 @@ export interface ILamp {
 interface IBProps {
   isOn: boolean;
   size: number;
-  onClick:any;
+  onClick: any;
 }
 
 // const TOGGLE_LAMP = gql`
@@ -29,14 +29,14 @@ const TOGGLE_LAMP = gql`
 `;
 
 const LampButton:FC<IBProps> = styled.button`
-  background-color: ${(props:IBProps) => props.isOn ? 'darkgreen' : 'darkred'};
+  background-color: ${({isOn}:IBProps) => isOn ? 'darkgreen' : 'darkred'};
   border: 1px solid black;
   border-radius: 3px;
   color: #ddd;
   cursor: pointer;
   display: inline-block;
   margin: 0.2rem;
-  padding: ${(props:IBProps) => props.size ? `${props.size * 0.1}rem` : '0.3rem'};
+  padding: ${({size}:IBProps) => size ? `${size * 0.1}rem` : '0.3rem'};
   
   &:hover {
     opacity: 0.5;
