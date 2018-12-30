@@ -16,8 +16,13 @@ Experiment to rewrite the lightswitches component of Homeremote
 * :heavy_check_mark: optional: Styled Components
 * Apollo-GraphQL for Local state management in the UI @ https://www.apollographql.com/docs/react/essentials/local-state.html#queries
 * Type coverage with https://www.npmjs.com/package/type-coverage (seems to just give a list of missing type path+positions)
-* Add a REST call: https://github.com/apollographql/apollo-link-rest/
+* Add a REST call: https://www.apollographql.com/docs/link/links/rest.html  https://github.com/apollographql/apollo-link-rest/ - alternatively use a bridge https://github.com/dacz/apollo-bridge-link
+* Apollo Boost does not support Apollo devtools
+* Add observable with watchQuery
+* Build a query dynamically
+* Use https://graphql-code-generator.com/ to generate types and HOC
 * Observables are very well possible with GraphQL. Apollo is all-in-one solution for modern web: types, observables, local state, REST, GraphQL 
+
 
 ## Resources
 

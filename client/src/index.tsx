@@ -12,7 +12,9 @@ const client = new ApolloClient({
   clientState: {
     defaults,
     resolvers
-  }
+  },
+  // Does not work with Apollo Boost?
+  // connectToDevTools: true
 });
 
 // client
