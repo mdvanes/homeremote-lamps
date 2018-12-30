@@ -10,9 +10,14 @@ export const defaults = {
   logger: 'Initial logger'
 };
 
+interface ICache {
+  cache: any,
+  getCacheKey: any
+}
+
 export const resolvers = {
   Mutation: {
-    toggleAnimation: (_: any, variables: any, {cache, getCacheKey}: { cache: any, getCacheKey: any }) => {
+    toggleAnimation: (_: any, variables: any, {cache, getCacheKey}: ICache) => {
       const id = getCacheKey({__typename: 'AnimationItem', id: variables.id});
       const fragment = gql`
         fragment animatingItem on AnimationItem {
@@ -24,5 +29,21 @@ export const resolvers = {
       cache.writeData({id, data});
       return null;
     },
+    toggleLamp: (_: any, variables: any, {cache, getCacheKey}: ICache) => {
+      const id = getCacheKey({__typename: 'Lamp', id: variables.id});
+      const fragment = gql`
+        fragment toggleLamp on lamps {
+          isOn
+        }
+      `;
+      const toggleLamp = cache.readFragment({fragment, id});
+      const data = {...toggleLamp, isOn: !toggleLamp.isOn};
+      cache.writeData({id, data});
+      return null;
+    }
   },
+  Lamp: {
+    __typename: 'Lamp',
+    isOn: () => false,
+  }
 };
