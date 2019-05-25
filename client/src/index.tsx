@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ApolloClient, {InMemoryCache} from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import {defaults, resolvers} from './resolvers'
+import {defaults, resolvers} from './Resolvers'
 
 const cache = new InMemoryCache();
 
@@ -15,11 +15,7 @@ cache.writeData({
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
-  resolvers: {
-    Mutation: {
-
-    }
-  },
+  resolvers,
   cache
   // Does not work with Apollo Boost?
   // connectToDevTools: true
