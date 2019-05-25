@@ -35,6 +35,10 @@ const typeDefs = gql`
     lamps(room: String): [Lamp]
     lamp(id: Int): Lamp
   }
+  
+  type Mutation {
+    noop(id: Int): Int
+  }
 `;
 
 module.exports = typeDefs;

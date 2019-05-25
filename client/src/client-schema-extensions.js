@@ -16,7 +16,9 @@ const clientSchemaExtensions = gql`
     animationItems: [AnimationItem]
   }
   
-
+  extend type Mutation {
+    toggleLamp(id: Int): Boolean
+  }
   
   extend type Lamp {
     isOn: Boolean

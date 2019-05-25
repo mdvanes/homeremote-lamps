@@ -73,6 +73,9 @@ const resolvers = {
     lamps: (_, {room}) => lamps.filter(l => l.room === room),
     lamp: (_, {id}) => lamps.filter(l => l.id === id)[0]
   },
+  Mutation: {
+    noop: async () => 1
+  },
 };
 
 module.exports = resolvers;
