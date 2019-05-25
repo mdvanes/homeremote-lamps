@@ -16,8 +16,10 @@ const clientSchemaExtensions = gql`
     animationItems: [AnimationItem]
   }
   
+  scalar None
+  
   extend type Mutation {
-    toggleLamp(id: Int): Boolean
+    toggleLamp(id: Int): None
   }
   
   extend type Lamp {
