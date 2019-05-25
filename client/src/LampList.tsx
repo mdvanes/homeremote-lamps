@@ -29,12 +29,20 @@ const LampBorder:FC<ILampBorderProps> = styled.div`
   border-radius: 20px;
 `;
 
+interface Props {
+  loading: any;
+  error: any;
+  data: any;
+  subscribeToMore: any;
+  client: any;
+}
+
 /* Using the open Currency API to emulate a back-end for
  * lamps. Currency name is used as the toggle name and the rate is used to determine the initial value
  * */
 const LampList:FC = () => (
   <Query query={QUERY}>
-    {({ loading, error, data, subscribeToMore, client }) => {
+    {({ loading, error, data, subscribeToMore, client }: any) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
 
