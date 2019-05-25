@@ -2,8 +2,13 @@ import {Resolver} from "../Resolver.type";
 
 const devices: Resolver = (_, variables, {cache, getCacheKey}) => {
   return [{
-    name: "a",
-    manufacturer: "b"
+    __typename: "Device",
+    name: "Switcheroo",
+    manufacturer: "Baeon"
+  }, {
+    __typename: "Device",
+    name: "IrPlug",
+    manufacturer: "Figaro"
   }];
 };
 

@@ -11,9 +11,16 @@ const clientSchemaExtensions = gql`
     isAnimating: Boolean
   }
   
+  type Device {
+    name: String
+    manufacturer: String
+  }
+  
   extend type Query {
-    "Cient-only field that contains a list of animation items"
+    "Client-only field that contains a list of animation items"
     animationItems: [AnimationItem]
+    "Client-only field with a list of devices"
+    devices: [Device]
   }
   
   scalar None
