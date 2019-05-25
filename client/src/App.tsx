@@ -6,6 +6,7 @@ import LocalStateDirectWriteButton from './LocalStateDirectWriteButton';
 import LocalStateMutationToggle from './LocalStateMutationToggle';
 import {gql} from 'apollo-boost';
 import {Query} from "react-apollo";
+import DeviceList from "./Components/DeviceList";
 
 const GET_ANIMATION_ITEMS = gql`
   {
@@ -18,6 +19,7 @@ const GET_ANIMATION_ITEMS = gql`
 
 const App: FC = () => (
   <div className="App">
+      <DeviceList title="My Devices" />
     {/*{({ data: { animationItems}}:any) => {
         console.log(animationItems);
         return (<div></div>)
