@@ -1,10 +1,10 @@
-import React, { FC } from "react";
-import { ComponentType as Component, ComponentClass } from 'react';
-import {OperationOption, withQuery} from "react-apollo";
-import {gql} from "apollo-boost";
+import React, { FC , ComponentType as Component, ComponentClass } from "react";
+
+import { OperationOption, withQuery } from "react-apollo";
+import { gql } from "apollo-boost";
 
 interface ComponentEnhancer<TInner, TOuter> {
-  (component: Component<TInner>): ComponentClass<TOuter>;
+    (component: Component<TInner>): ComponentClass<TOuter>;
 }
 
 // type Compose =  <TInner, TOutter>(
@@ -17,30 +17,32 @@ interface ComponentEnhancer<TInner, TOuter> {
 // const compose: Compose = (...funcs) =>
 //   funcs.reduce((a, b) => (...args) => a(b(...args)), arg => arg)
 
-function compose<TInner, TOuter>(...funcs: Function[]): ComponentEnhancer<TInner, TOuter> {
-  const functions = funcs.reverse();
-  return function (...args: any[]) {
-    const [firstFunction, ...restFunctions] = functions
-    let result = firstFunction.apply(null, args);
-    restFunctions.forEach((fnc) => {
-      result = fnc.call(null, result)
-    });
-    return result;
-  }
+function compose<TInner, TOuter>(
+  ...funcs: Function[]
+): ComponentEnhancer<TInner, TOuter> {
+    const functions = funcs.reverse();
+    return function(...args: any[]) {
+        const [firstFunction, ...restFunctions] = functions;
+        let result = firstFunction.apply(null, args);
+        restFunctions.forEach(fnc => {
+            result = fnc.call(null, result);
+        });
+        return result;
+    };
 }
 
 export interface Device {
-  __typename?: "Device";
-  name: string;
-  manufacturer: string;
+    __typename?: "Device";
+    name: string;
+    manufacturer: string;
 }
 
 interface OuterProps {
-  title: string;
+    title: string;
 }
 
 interface InnerProps {
-  devicesQuery: any;
+    devicesQuery: any;
 }
 
 type Props = OuterProps & InnerProps;
@@ -48,11 +50,15 @@ type Props = OuterProps & InnerProps;
 /**
  * This example exists to test typing on apollo-boost/compose
  */
-const DeviceList: FC<Props> = ({title, devicesQuery}) => <>
+const DeviceList: FC<Props> = ({ title, devicesQuery }) => (
+  (
+<>
   <h1>{title}</h1>
-  <ul>
-    {devicesQuery && devicesQuery.devices && devicesQuery.devices.map(({name, manufacturer}: Device) => <li key={name}>{name} <i>by {manufacturer}</i></li>)}
-  </ul></>;
+  <table>
+    <th><td>x</td></th>
+    {devicesQuery && devicesQuery.devices && devicesQuery.devices.map(({name, manufacturer}: Device) => <tr key={name}>{name} <i>by {manufacturer}</i></tr>)}
+  </table></>
+);
 
 // Source:  https://graphql-code-generator.com/
 //
@@ -75,23 +81,36 @@ const DeviceList: FC<Props> = ({title, devicesQuery}) => <>
 //     });
 // };
 
-type TGraphQLVariables = {};
+interface TGraphQLVariables {}
 
-function withDevicesList<TProps, TChildProps = {}>(operationOptions: OperationOption<TProps, Device[], TGraphQLVariables, TChildProps>) {
-  return withQuery(gql`
-    {
-      devices @client {
-        name
-        manufacturer
+function withDevicesList<TProps, TChildProps = {}>(
+  operationOptions: OperationOption<
+    TProps,
+    Device[],
+    TGraphQLVariables,
+    TChildProps
+  >
+) {
+    return withQuery(
+    gql`
+      {
+        devices @client {
+          name
+          manufacturer
+        }
       }
-    }`, {
-    name: "devicesQuery",
-    ...operationOptions
-  })
+    `,
+    {
+        name: "devicesQuery",
+      ...operationOptions
+    })
 }
 
 // export default withDevicesList<OuterProps, Props>({})(DeviceList);
-export default compose<Props, OuterProps>(withDevicesList<OuterProps, Props>({}))(DeviceList);
+export default compose<Props, OuterProps>(
+  withDevicesList<OuterProps, Props>({}),
+  withDevicesList<OuterProps, Props>({})
+)(DeviceList);
 
 /*
 First step: https://blog.apollographql.com/getting-started-with-typescript-and-apollo-a9aa2c7dcf87
@@ -154,6 +173,8 @@ function withDevicesList<TProps, TChildProps = {}>(operationOptions: OperationOp
 export default withDevicesList<OuterProps, Props>({})(DeviceList);
 
 3. When using recompose/compose to add HOCs
+
+Skipped.
 
 4. With apollo-boost/compose
 
