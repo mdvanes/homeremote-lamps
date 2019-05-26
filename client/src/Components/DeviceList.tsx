@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import {OperationOption, withQuery} from "react-apollo";
+import {OperationOption, withQuery, compose} from "react-apollo";
 import {gql} from "apollo-boost";
 
 export interface Device {
@@ -63,7 +63,8 @@ function withDevicesList<TProps, TChildProps = {}>(operationOptions: OperationOp
   })
 }
 
-export default withDevicesList<OuterProps, Props>({})(DeviceList);
+// export default withDevicesList<OuterProps, Props>({})(DeviceList);
+export default compose(withDevicesList<OuterProps, Props>({}))(DeviceList);
 
 /*
 First step: https://blog.apollographql.com/getting-started-with-typescript-and-apollo-a9aa2c7dcf87
@@ -128,6 +129,48 @@ export default withDevicesList<OuterProps, Props>({})(DeviceList);
 3. When using recompose/compose to add HOCs
 
 4. With apollo-boost/compose
+
+Exporting like this:
+
+import {OperationOption, withQuery, compose} from "react-apollo";
+...
+export default compose(withDevicesList<OuterProps, Props>({}))(DeviceList);
+
+Breaks all type checking! Removing the generic (like so export default compose(withDevicesList({}))(DeviceList);
+) gives no warnings, but also in App.tsx, the are no checks on the props anymore.
+It is because this is not typed (enough): https://github.com/apollographql/react-apollo/blob/2a330a770d96b8849abb40906b2dacdf69187d3b/src/utils/flowRight.ts
+
+export function compose(...funcs: Function[]) {
+  const functions = funcs.reverse();
+  return function (...args: any[]) {
+    const [firstFunction, ...restFunctions] = functions
+    let result = firstFunction.apply(null, args);
+    restFunctions.forEach((fnc) => {
+      result = fnc.call(null, result)
+    });
+    return result;
+  }
+}
+
+Its type:
+export declare function compose(...funcs: Function[]): (...args: any[]) => any;
+
+The source for the alternative acdlite/recompose/compose is:
+
+https://github.com/acdlite/recompose/blob/master/src/packages/recompose/compose.js
+const compose = (...funcs) =>
+  funcs.reduce((a, b) => (...args) => a(b(...args)), arg => arg)
+
+export default compose
+
+The type for acdlite/recompose/compose is:
+
+// Source: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/3ba6ab5908979830a8bc179cccd428180a5e0ff2/types/recompose/index.d.ts#L302
+// compose: https://github.com/acdlite/recompose/blob/master/docs/API.md#compose
+export function compose<TInner, TOutter>(
+    ...functions: Function[]
+): ComponentEnhancer<TInner, TOutter>;
+
 
 5. also with input params to Query (?)
  */
