@@ -3,6 +3,7 @@ import React, { FC, ComponentType as Component, ComponentClass } from "react";
 import { OperationOption, withQuery } from "react-apollo";
 import { gql } from "apollo-boost";
 
+/** compose */
 interface ComponentEnhancer<TInner, TOuter> {
   (component: Component<TInner>): ComponentClass<TOuter>;
 }
@@ -31,6 +32,7 @@ function compose<TInner, TOuter>(
   };
 }
 
+/** types */
 export interface Device {
   __typename?: "Device";
   name: string;
@@ -41,6 +43,12 @@ interface Location {
   __typename?: "Location";
   lon: number;
   lat: number;
+}
+
+export enum Country {
+   NL = "NL",
+   BE = "BE",
+   LU = "LU"
 }
 
 export interface Vendor {
@@ -149,18 +157,21 @@ function withDevicesList<TProps, TChildProps = {}>(
 }
 
 /** withVendors HOC - should be in separate file (e.g. Containers/withVendors) but embedded here to make it easier to share all relevant code in one go **/
+type VendorsQueryVariables = {
+  countryCode: Country;
+};
 function withVendors<TProps, TChildProps = {}>(
   operationOptions: OperationOption<
     TProps,
     Vendor[],
-    TGraphQLVariables,
+    VendorsQueryVariables,
     TChildProps
     >
 ) {
   return withQuery(
     gql`
-      {
-        vendors @client {
+      query vendorsQuery($countryCode: Country) {
+        vendors(countryCode: $countryCode) @client {
           name
           location {
             lat
@@ -171,6 +182,11 @@ function withVendors<TProps, TChildProps = {}>(
     `,
     {
       name: "vendorsQuery",
+      options: {
+        variables: {
+          countryCode: Country.NL
+        }
+      },
       ...operationOptions
     }
   );
@@ -179,7 +195,14 @@ function withVendors<TProps, TChildProps = {}>(
 // export default withDevicesList<OuterProps, Props>({})(DeviceList);
 export default compose<Props, OuterProps>(
   withDevicesList<OuterProps, Props>({}),
-  withVendors<OuterProps, Props>({})
+  withVendors<OuterProps, Props>({
+    // Can be here, too
+    // options: {
+    //   variables: {
+    //     countryCode: "NL"
+    //   }
+    // }
+  })
 )(DeviceList);
 
 /*
