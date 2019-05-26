@@ -1,10 +1,10 @@
-import React, { FC , ComponentType as Component, ComponentClass } from "react";
+import React, { FC, ComponentType as Component, ComponentClass } from "react";
 
 import { OperationOption, withQuery } from "react-apollo";
 import { gql } from "apollo-boost";
 
 interface ComponentEnhancer<TInner, TOuter> {
-    (component: Component<TInner>): ComponentClass<TOuter>;
+  (component: Component<TInner>): ComponentClass<TOuter>;
 }
 
 // type Compose =  <TInner, TOutter>(
@@ -20,29 +20,29 @@ interface ComponentEnhancer<TInner, TOuter> {
 function compose<TInner, TOuter>(
   ...funcs: Function[]
 ): ComponentEnhancer<TInner, TOuter> {
-    const functions = funcs.reverse();
-    return function(...args: any[]) {
-        const [firstFunction, ...restFunctions] = functions;
-        let result = firstFunction.apply(null, args);
-        restFunctions.forEach(fnc => {
-            result = fnc.call(null, result);
-        });
-        return result;
-    };
+  const functions = funcs.reverse();
+  return function(...args: any[]) {
+    const [firstFunction, ...restFunctions] = functions;
+    let result = firstFunction.apply(null, args);
+    restFunctions.forEach(fnc => {
+      result = fnc.call(null, result);
+    });
+    return result;
+  };
 }
 
 export interface Device {
-    __typename?: "Device";
-    name: string;
-    manufacturer: string;
+  __typename?: "Device";
+  name: string;
+  manufacturer: string;
 }
 
 interface OuterProps {
-    title: string;
+  title: string;
 }
 
 interface InnerProps {
-    devicesQuery: any;
+  devicesQuery: any;
 }
 
 type Props = OuterProps & InnerProps;
@@ -51,13 +51,32 @@ type Props = OuterProps & InnerProps;
  * This example exists to test typing on apollo-boost/compose
  */
 const DeviceList: FC<Props> = ({ title, devicesQuery }) => (
-  (
-<>
-  <h1>{title}</h1>
-  <table>
-    <th><td>x</td></th>
-    {devicesQuery && devicesQuery.devices && devicesQuery.devices.map(({name, manufacturer}: Device) => <tr key={name}>{name} <i>by {manufacturer}</i></tr>)}
-  </table></>
+  <>
+    <h1>{title}</h1>
+    <table>
+      <thead>
+        <tr>
+          <td>Device Name</td>
+          <td>Manufacturer</td>
+          <td>Vendor Location</td>
+        </tr>
+      </thead>
+      <tbody>
+        {devicesQuery &&
+          devicesQuery.devices &&
+          devicesQuery.devices.map(({ name, manufacturer }: Device) => (
+            <tr key={name}>
+              <td>
+                {name}
+              </td>
+              <td>
+                {manufacturer}
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  </>
 );
 
 // Source:  https://graphql-code-generator.com/
@@ -91,7 +110,7 @@ function withDevicesList<TProps, TChildProps = {}>(
     TChildProps
   >
 ) {
-    return withQuery(
+  return withQuery(
     gql`
       {
         devices @client {
@@ -101,9 +120,10 @@ function withDevicesList<TProps, TChildProps = {}>(
       }
     `,
     {
-        name: "devicesQuery",
+      name: "devicesQuery",
       ...operationOptions
-    })
+    }
+  );
 }
 
 // export default withDevicesList<OuterProps, Props>({})(DeviceList);
