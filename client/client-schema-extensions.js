@@ -16,11 +16,30 @@ const clientSchemaExtensions = gql`
     manufacturer: String
   }
   
+  type Location {
+    lon: Float
+    lat: Float
+  }
+  
+  type Vendor {
+    name: String
+    stock: [Device]
+    location: Location
+  }
+  
+  enum Country {
+    NL
+    BE
+    LU
+  }
+  
   extend type Query {
     "Client-only field that contains a list of animation items"
     animationItems: [AnimationItem]
     "Client-only field with a list of devices"
     devices: [Device]
+    "Client-only field with a list of vendors for devices"
+    vendors(countryCode: Country): [Vendor]
   }
   
   scalar None

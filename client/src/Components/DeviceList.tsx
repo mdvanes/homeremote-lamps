@@ -37,6 +37,18 @@ export interface Device {
   manufacturer: string;
 }
 
+interface Location {
+  lon: number;
+  lat: number;
+}
+
+export interface Vendor {
+  __typename?: "Vendor";
+  name: string;
+  stock: Device[];
+  location: Location
+}
+
 interface OuterProps {
   title: string;
 }
@@ -102,6 +114,7 @@ const DeviceList: FC<Props> = ({ title, devicesQuery }) => (
 
 interface TGraphQLVariables {}
 
+/** withDevicesList HOC - should be in separate file (e.g. Containers/withDevicesList) but embedded here to make it easier to share all relevant code in one go **/
 function withDevicesList<TProps, TChildProps = {}>(
   operationOptions: OperationOption<
     TProps,
@@ -241,5 +254,6 @@ export function compose<TInner, TOutter>(
 
 A proposed PR to fix this: https://github.com/apollographql/react-apollo/pull/3070
 
-5. also with input params to Query (?), multiple Queries, and simplified type (without Operation)
+5. also with input params to Query (?), multiple Queries, and simplified type (without Operation), Add Styles
+
  */
