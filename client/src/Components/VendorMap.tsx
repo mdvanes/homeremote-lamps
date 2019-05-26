@@ -1,8 +1,14 @@
 import React, { FC } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import {Map, TileLayer, Marker, Popup, LayersControl, LayerGroup, Circle, FeatureGroup, Rectangle} from "react-leaflet";
+import VendorLayersControl from "./VendorLayersControl";
+const { BaseLayer, Overlay } = LayersControl;
 
-const position: [number, number] = [51.505, -0.09];
-const zoom = 13;
+const position: [number, number] = [52.08927, 5.11000];
+const zoom = 8;
+
+// NL 8/52.172/5.738
+// Nieuwegein 52.05668/5.11049 17
+// Den Bosch 51.70266/5.28726 17
 
 // Example: https://codepen.io/PaulLeCam/pen/gzVmGw
 
@@ -19,6 +25,7 @@ const VendorMap: FC = () => {
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker>
+        <VendorLayersControl />
       </Map>
     </div>
   );
