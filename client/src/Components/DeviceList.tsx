@@ -1,6 +1,33 @@
 import React, { FC } from "react";
-import {OperationOption, withQuery, compose} from "react-apollo";
+import { ComponentType as Component, ComponentClass } from 'react';
+import {OperationOption, withQuery} from "react-apollo";
 import {gql} from "apollo-boost";
+
+interface ComponentEnhancer<TInner, TOuter> {
+  (component: Component<TInner>): ComponentClass<TOuter>;
+}
+
+// type Compose =  <TInner, TOutter>(
+//   ...functions: Function[]
+// ) => ComponentEnhancer<TInner, TOutter>;
+//
+// // const compose = <TInner, TOuter>(...funcs: Function[]): ComponentEnhancer<TInner, TOuter> =>
+// //   funcs.reduce((a, b) => (...args: any[]) => a(b(...args)), (arg: any) => arg)
+//
+// const compose: Compose = (...funcs) =>
+//   funcs.reduce((a, b) => (...args) => a(b(...args)), arg => arg)
+
+function compose<TInner, TOuter>(...funcs: Function[]): ComponentEnhancer<TInner, TOuter> {
+  const functions = funcs.reverse();
+  return function (...args: any[]) {
+    const [firstFunction, ...restFunctions] = functions
+    let result = firstFunction.apply(null, args);
+    restFunctions.forEach((fnc) => {
+      result = fnc.call(null, result)
+    });
+    return result;
+  }
+}
 
 export interface Device {
   __typename?: "Device";
@@ -64,7 +91,7 @@ function withDevicesList<TProps, TChildProps = {}>(operationOptions: OperationOp
 }
 
 // export default withDevicesList<OuterProps, Props>({})(DeviceList);
-export default compose(withDevicesList<OuterProps, Props>({}))(DeviceList);
+export default compose<Props, OuterProps>(withDevicesList<OuterProps, Props>({}))(DeviceList);
 
 /*
 First step: https://blog.apollographql.com/getting-started-with-typescript-and-apollo-a9aa2c7dcf87
@@ -171,6 +198,7 @@ export function compose<TInner, TOutter>(
     ...functions: Function[]
 ): ComponentEnhancer<TInner, TOutter>;
 
+A proposed PR to fix this: https://github.com/apollographql/react-apollo/pull/3070
 
-5. also with input params to Query (?)
+5. also with input params to Query (?), multiple Queries, and simplified type (without Operation)
  */
