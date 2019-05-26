@@ -1,6 +1,7 @@
 import {Resolver} from "../Resolver.type";
+import {Device} from "../../Components/DeviceList";
 
-const devices: Resolver = (_, variables, {cache, getCacheKey}) => {
+const devices: Resolver = (_, variables, {cache, getCacheKey}): Device[] => {
   return [{
     __typename: "Device",
     name: "Switcheroo",
