@@ -2,13 +2,14 @@ import { Resolver } from "../Resolver.type";
 import { Vendor } from "../../Components/DeviceList";
 
 const vendors: Resolver = (_, variables, { cache, getCacheKey }): Vendor[] => {
-  console.log(variables);
+  console.log("in Vendor Resolver", variables);
   return [
     {
       __typename: "Vendor",
       name: "EddShop",
-      stock: [],
+      stock: ["Switcheroo", "IrPlug"],
       location: {
+        __typename: "Location",
         lat: 1.23456,
         lon: 1.24566
       }
@@ -16,8 +17,9 @@ const vendors: Resolver = (_, variables, { cache, getCacheKey }): Vendor[] => {
     {
       __typename: "Vendor",
       name: "HotRed",
-      stock: [],
+      stock: ["Switcheroo", "IrPlug"],
       location: {
+        __typename: "Location",
         lat: 1.23456,
         lon: 1.24566
       }

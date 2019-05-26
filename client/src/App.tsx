@@ -19,7 +19,7 @@ const GET_ANIMATION_ITEMS = gql`
 
 const App: FC = () => (
   <div className="App">
-      <DeviceList title="My Devices" />
+      <DeviceList title="Devices" />
     {/*{({ data: { animationItems}}:any) => {
         console.log(animationItems);
         return (<div></div>)
