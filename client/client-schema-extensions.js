@@ -23,7 +23,7 @@ const clientSchemaExtensions = gql`
   
   type Vendor {
     name: String
-    stock: [Device]
+    stock: [String]
     location: Location
   }
   

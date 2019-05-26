@@ -38,6 +38,7 @@ export interface Device {
 }
 
 interface Location {
+  __typename?: "Location";
   lon: number;
   lat: number;
 }
@@ -45,7 +46,7 @@ interface Location {
 export interface Vendor {
   __typename?: "Vendor";
   name: string;
-  stock: Device[];
+  stock: string[];
   location: Location
 }
 
@@ -54,7 +55,12 @@ interface OuterProps {
 }
 
 interface InnerProps {
-  devicesQuery: any;
+  devicesQuery: {
+    devices: Device[]
+  };
+  vendorsQuery: {
+    vendors: Vendor[]
+  }
 }
 
 type Props = OuterProps & InnerProps;
@@ -62,7 +68,7 @@ type Props = OuterProps & InnerProps;
 /**
  * This example exists to test typing on apollo-boost/compose
  */
-const DeviceList: FC<Props> = ({ title, devicesQuery }) => (
+const DeviceList: FC<Props> = ({ title, devicesQuery, vendorsQuery: { vendors } }) => (
   <>
     <h1>{title}</h1>
     <table>
@@ -83,6 +89,9 @@ const DeviceList: FC<Props> = ({ title, devicesQuery }) => (
               </td>
               <td>
                 {manufacturer}
+              </td>
+              <td>
+                {vendors && vendors.map(v => v.name).join(", ")}
               </td>
             </tr>
           ))}
@@ -139,10 +148,38 @@ function withDevicesList<TProps, TChildProps = {}>(
   );
 }
 
+/** withVendors HOC - should be in separate file (e.g. Containers/withVendors) but embedded here to make it easier to share all relevant code in one go **/
+function withVendors<TProps, TChildProps = {}>(
+  operationOptions: OperationOption<
+    TProps,
+    Vendor[],
+    TGraphQLVariables,
+    TChildProps
+    >
+) {
+  return withQuery(
+    gql`
+      {
+        vendors @client {
+          name
+          location {
+            lat
+            lon
+          }
+        }
+      }
+    `,
+    {
+      name: "vendorsQuery",
+      ...operationOptions
+    }
+  );
+}
+
 // export default withDevicesList<OuterProps, Props>({})(DeviceList);
 export default compose<Props, OuterProps>(
   withDevicesList<OuterProps, Props>({}),
-  withDevicesList<OuterProps, Props>({})
+  withVendors<OuterProps, Props>({})
 )(DeviceList);
 
 /*
