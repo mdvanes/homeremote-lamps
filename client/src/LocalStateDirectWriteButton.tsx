@@ -1,7 +1,8 @@
-import React, {FC} from 'react';
-import {ApolloConsumer, Query} from 'react-apollo';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
+import React, { FC } from "react";
+// import {ApolloConsumer, Query} from 'react-apollo';
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import styled from "styled-components";
 
 const GET_LOGGER = gql`
   {
@@ -38,16 +39,16 @@ const LogArea = styled.div`
 */
 const LocalStateDirectWriteButton: FC = () => (
   <Query query={GET_LOGGER}>
-    {
-      ({data, client}: any) => (
-        <Card>
-          <button onClick={() => client.writeData({data: {logger: 'You clicked!'}})}>
-            Write to log
-          </button>
-          <LogArea>{data.logger}</LogArea>
-        </Card>
-      )
-    }
+    {({ data, client }: any) => (
+      <Card>
+        <button
+          onClick={() => client.writeData({ data: { logger: "You clicked!" } })}
+        >
+          Write to log
+        </button>
+        <LogArea>{data.logger}</LogArea>
+      </Card>
+    )}
   </Query>
 );
 

@@ -1,9 +1,8 @@
 import React, { FC } from "react";
-import {Map, TileLayer, Marker, Popup, LayersControl, LayerGroup, Circle, FeatureGroup, Rectangle} from "react-leaflet";
+import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import VendorLayersControl from "./VendorLayersControl";
-const { BaseLayer, Overlay } = LayersControl;
 
-const position: [number, number] = [52.08927, 5.11000];
+const position: [number, number] = [52.08927, 5.11];
 const zoom = 8;
 
 // NL 8/52.172/5.738
