@@ -24,7 +24,7 @@ const rectangle: [number, number][] = [
 
 // Example: https://codepen.io/PaulLeCam/pen/gzVmGw
 
-const VendorLayersControl: FC = () => {
+const VendorLayersControl: FC = (): JSX.Element => {
   return (
     <LayersControl position="topright">
       <BaseLayer checked name="OpenStreetMap.Mapnik">

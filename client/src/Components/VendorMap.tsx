@@ -11,7 +11,7 @@ const zoom = 8;
 
 // Example: https://codepen.io/PaulLeCam/pen/gzVmGw
 
-const VendorMap: FC = () => {
+const VendorMap: FC = (): JSX.Element => {
   return (
     <div style={{ height: "400px", width: "400px", overflow: "hidden" }}>
       <Map center={position} zoom={zoom}>

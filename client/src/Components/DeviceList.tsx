@@ -22,9 +22,12 @@ function compose<TInner, TOuter>(
   ...funcs: Function[]
 ): ComponentEnhancer<TInner, TOuter> {
   const functions = funcs.reverse();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-function-return-type,func-names
   return function(...args: any[]) {
     const [firstFunction, ...restFunctions] = functions;
+    // eslint-disable-next-line prefer-spread
     let result = firstFunction.apply(null, args);
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     restFunctions.forEach(fnc => {
       result = fnc.call(null, result);
     });
@@ -46,9 +49,9 @@ interface Location {
 }
 
 export enum Country {
-  NL = "NL",
-  BE = "BE",
-  LU = "LU"
+  NL = "NL"
+  // BE = "BE",
+  // LU = "LU"
 }
 
 export interface Vendor {
@@ -80,7 +83,7 @@ const DeviceList: FC<Props> = ({
   title,
   devicesQuery,
   vendorsQuery: { vendors }
-}) => (
+}): JSX.Element => (
   <>
     <h1>{title}</h1>
     <table>
@@ -94,13 +97,17 @@ const DeviceList: FC<Props> = ({
       <tbody>
         {devicesQuery &&
           devicesQuery.devices &&
-          devicesQuery.devices.map(({ name, manufacturer }: Device) => (
-            <tr key={name}>
-              <td>{name}</td>
-              <td>{manufacturer}</td>
-              <td>{vendors && vendors.map(v => v.name).join(", ")}</td>
-            </tr>
-          ))}
+          devicesQuery.devices.map(
+            ({ name, manufacturer }: Device): JSX.Element => (
+              <tr key={name}>
+                <td>{name}</td>
+                <td>{manufacturer}</td>
+                <td>
+                  {vendors && vendors.map((v): string => v.name).join(", ")}
+                </td>
+              </tr>
+            )
+          )}
       </tbody>
     </table>
   </>
@@ -127,6 +134,7 @@ const DeviceList: FC<Props> = ({
 //     });
 // };
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface TGraphQLVariables {}
 
 /** withDevicesList HOC - should be in separate file (e.g. Containers/withDevicesList) but embedded here to make it easier to share all relevant code in one go * */
