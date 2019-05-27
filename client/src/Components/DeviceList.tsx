@@ -46,16 +46,16 @@ interface Location {
 }
 
 export enum Country {
-   NL = "NL",
-   BE = "BE",
-   LU = "LU"
-}
+  NL = "NL",
+  BE = "BE",
+  LU = "LU"
+ }
 
 export interface Vendor {
   __typename?: "Vendor";
   name: string;
   stock: string[];
-  location: Location
+  location: Location;
 }
 
 interface OuterProps {
@@ -64,11 +64,11 @@ interface OuterProps {
 
 interface InnerProps {
   devicesQuery: {
-    devices: Device[]
+    devices: Device[];
   };
   vendorsQuery: {
-    vendors: Vendor[]
-  }
+    vendors: Vendor[];
+  };
 }
 
 type Props = OuterProps & InnerProps;
@@ -76,7 +76,11 @@ type Props = OuterProps & InnerProps;
 /**
  * This example exists to test typing on apollo-boost/compose
  */
-const DeviceList: FC<Props> = ({ title, devicesQuery, vendorsQuery: { vendors } }) => (
+const DeviceList: FC<Props> = ({
+  title,
+  devicesQuery,
+  vendorsQuery: { vendors }
+}) => (
   <>
     <h1>{title}</h1>
     <table>
@@ -92,15 +96,9 @@ const DeviceList: FC<Props> = ({ title, devicesQuery, vendorsQuery: { vendors } 
           devicesQuery.devices &&
           devicesQuery.devices.map(({ name, manufacturer }: Device) => (
             <tr key={name}>
-              <td>
-                {name}
-              </td>
-              <td>
-                {manufacturer}
-              </td>
-              <td>
-                {vendors && vendors.map(v => v.name).join(", ")}
-              </td>
+              <td>{name}</td>
+              <td>{manufacturer}</td>
+              <td>{vendors && vendors.map(v => v.name).join(", ")}</td>
             </tr>
           ))}
       </tbody>
@@ -140,7 +138,7 @@ function withDevicesList<TProps, TChildProps = {}>(
     TChildProps
   >
 ) {
-  return withQuery(
+  return withQuery<TProps, Device[], TGraphQLVariables, TChildProps>(
     gql`
       {
         devices @client {
@@ -166,9 +164,9 @@ function withVendors<TProps, TChildProps = {}>(
     Vendor[],
     VendorsQueryVariables,
     TChildProps
-    >
+  >
 ) {
-  return withQuery(
+  return withQuery<TProps, Vendor[], VendorsQueryVariables, TChildProps>(
     gql`
       query vendorsQuery($countryCode: Country) {
         vendors(countryCode: $countryCode) @client {
