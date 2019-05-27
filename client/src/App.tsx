@@ -22,10 +22,10 @@ const App: FC = () => (
   <div className="App">
     <DeviceList title="Devices" />
     <VendorMap />
-    {/*{({ data: { animationItems}}:any) => {
+    {/* {({ data: { animationItems}}:any) => {
         console.log(animationItems);
         return (<div></div>)
-      }}*/}
+      }} */}
     <Query query={GET_ANIMATION_ITEMS}>
       {({ data: { animationItems } }: any) =>
         animationItems.map((item: any) => {

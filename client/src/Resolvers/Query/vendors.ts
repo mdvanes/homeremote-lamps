@@ -1,9 +1,9 @@
 import { Resolver } from "../Resolver.type";
-import {Country, Vendor} from "../../Components/DeviceList";
+import { Country, Vendor } from "../../Components/DeviceList";
 
-const vendors: Resolver = (_, variables , { cache, getCacheKey }): Vendor[] => {
-  console.log("in Vendor Resolver", variables);
-  if(variables && variables.countryCode === Country.NL) {
+const vendors: Resolver = (_, variables, { cache, getCacheKey }): Vendor[] => {
+  // console.log("in Vendor Resolver", variables);
+  if (variables && variables.countryCode === Country.NL) {
     return [
       {
         __typename: "Vendor",

@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
-import {Mutation} from 'react-apollo';
-import styled from 'styled-components';
-import gql from 'graphql-tag';
+import React, { FC } from "react";
+import { Mutation } from "react-apollo";
+import styled from "styled-components";
+import gql from "graphql-tag";
 
 export interface ILamp {
   id: number;
@@ -28,28 +28,29 @@ const TOGGLE_LAMP = gql`
   }
 `;
 
-const LampButton:FC<IBProps> = styled.button`
-  background-color: ${({isOn}:IBProps) => isOn ? 'darkgreen' : 'darkred'};
+const LampButton: FC<IBProps> = styled.button`
+  background-color: ${({ isOn }: IBProps) => (isOn ? "darkgreen" : "darkred")};
   border: 1px solid black;
   border-radius: 3px;
   color: #ddd;
   cursor: pointer;
   display: inline-block;
   margin: 0.2rem;
-  padding: ${({size}:IBProps) => size ? `${size * 0.1}rem` : '0.3rem'};
-  
+  padding: ${({ size }: IBProps) => (size ? `${size * 0.1}rem` : "0.3rem")};
+
   &:hover {
     opacity: 0.5;
   }
 `;
 
-const Lamp: FC<ILamp> = ({id, name, isOn, size}) => (
-  <Mutation mutation={TOGGLE_LAMP} variables={{id}}>
-    {(toggleLamp:any) => (
+const Lamp: FC<ILamp> = ({ id, name, isOn, size }) => (
+  <Mutation mutation={TOGGLE_LAMP} variables={{ id }}>
+    {(toggleLamp: any) => (
       <LampButton isOn={isOn} size={size} onClick={toggleLamp}>
         {name} {isOn}
       </LampButton>
     )}
-  </Mutation>);
+  </Mutation>
+);
 
 export default Lamp;

@@ -64,7 +64,7 @@
     "overrides": [
       {
         "files": [
-          "**.*.tsx"
+          "**/*.tsx"
         ],
         "rules": {
           // Fix proptype checking for FC in TypeScript

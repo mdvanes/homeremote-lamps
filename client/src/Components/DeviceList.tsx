@@ -49,7 +49,7 @@ export enum Country {
   NL = "NL",
   BE = "BE",
   LU = "LU"
- }
+}
 
 export interface Vendor {
   __typename?: "Vendor";
@@ -129,7 +129,7 @@ const DeviceList: FC<Props> = ({
 
 interface TGraphQLVariables {}
 
-/** withDevicesList HOC - should be in separate file (e.g. Containers/withDevicesList) but embedded here to make it easier to share all relevant code in one go **/
+/** withDevicesList HOC - should be in separate file (e.g. Containers/withDevicesList) but embedded here to make it easier to share all relevant code in one go * */
 function withDevicesList<TProps, TChildProps = {}>(
   operationOptions: OperationOption<
     TProps,
@@ -154,10 +154,10 @@ function withDevicesList<TProps, TChildProps = {}>(
   );
 }
 
-/** withVendors HOC - should be in separate file (e.g. Containers/withVendors) but embedded here to make it easier to share all relevant code in one go **/
-type VendorsQueryVariables = {
+/** withVendors HOC - should be in separate file (e.g. Containers/withVendors) but embedded here to make it easier to share all relevant code in one go * */
+interface VendorsQueryVariables {
   countryCode: Country;
-};
+}
 function withVendors<TProps, TChildProps = {}>(
   operationOptions: OperationOption<
     TProps,

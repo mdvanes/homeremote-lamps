@@ -1,6 +1,11 @@
-interface ICache {
-  cache: any,
-  getCacheKey: any
+interface Cache {
+  cache: any;
+  getCacheKey: any;
 }
 
-export type Resolver = (_: any, variables: any, {cache, getCacheKey}: ICache) => any;
+// eslint-disable-next-line
+export type Resolver = (
+  _: any,
+  variables: any,
+  { cache, getCacheKey }: Cache
+) => any;

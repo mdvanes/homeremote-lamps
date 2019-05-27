@@ -4,13 +4,15 @@ import devices from "./Query/devices";
 import vendors from "./Query/vendors";
 
 export const defaults = {
-  animationItems: [{
-    __typename: 'AnimationItem',
-    id: 1,
-    name: 'App-logo',
-    isAnimating: true
-  }],
-  logger: 'Initial logger'
+  animationItems: [
+    {
+      __typename: "AnimationItem",
+      id: 1,
+      name: "App-logo",
+      isAnimating: false
+    }
+  ],
+  logger: "Initial logger"
 };
 
 export const resolvers = {
