@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
-import Lamp, { ILamp } from './Lamp';
+import React, { FC } from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import styled from "styled-components";
+import Lamp, { ILamp } from "./Lamp";
 
 const QUERY = gql`
   {
@@ -10,7 +10,7 @@ const QUERY = gql`
     #  currency
     #  rate
     #}
-    lamps(room:"Living") {
+    lamps(room: "Living") {
       id
       name
       size
@@ -24,8 +24,9 @@ interface ILampBorderProps {
   onClick: any;
 }
 
-const LampBorder:FC<ILampBorderProps> = styled.div`
-  border: 10px solid ${({allOn}:ILampBorderProps) => allOn ? 'darkgreen' : 'transparent'}
+const LampBorder: FC<ILampBorderProps> = styled.div`
+  border: 10px solid ${({ allOn }: ILampBorderProps) =>
+    allOn ? "darkgreen" : "transparent"}
   border-radius: 20px;
 `;
 
@@ -40,7 +41,7 @@ interface Props {
 /* Using the open Currency API to emulate a back-end for
  * lamps. Currency name is used as the toggle name and the rate is used to determine the initial value
  * */
-const LampList:FC = () => (
+const LampList: FC = () => (
   <Query query={QUERY}>
     {({ loading, error, data, subscribeToMore, client }: any) => {
       if (loading) return <p>Loading...</p>;
@@ -59,11 +60,12 @@ const LampList:FC = () => (
       const allOn = data.lamps.every((lamp: ILamp) => lamp.isOn);
 
       return (
-        <LampBorder allOn={allOn} onClick={()=>{}}>
+        <LampBorder allOn={allOn} onClick={() => {}}>
           {data.lamps.map((lamp: ILamp) => (
             <Lamp key={lamp.name} {...lamp} />
           ))}
-        </LampBorder>);
+        </LampBorder>
+      );
     }}
   </Query>
 );

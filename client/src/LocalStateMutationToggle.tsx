@@ -1,16 +1,16 @@
-import React, {FC} from 'react';
-import {Mutation} from 'react-apollo';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
+import React, { FC } from "react";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
+import styled from "styled-components";
 
 interface IProps {
-  id: number,
-  isAnimating: boolean
+  id: number;
+  isAnimating: boolean;
 }
 
 interface ITProps {
-  onClick: any,
-  isAnimating: boolean
+  onClick: any;
+  isAnimating: boolean;
 }
 
 const TOGGLE_ANIMATION = gql`
@@ -19,8 +19,9 @@ const TOGGLE_ANIMATION = gql`
   }
 `;
 
-const Toggle:FC<ITProps> = styled.button`
-  background-color: ${(props:ITProps) => props.isAnimating ? '#61dafb' : '#4d90fe'};
+const Toggle: FC<ITProps> = styled.button`
+  background-color: ${(props: ITProps) =>
+    props.isAnimating ? "#61dafb" : "#4d90fe"};
   border: none;
   border-radius: 0 0 5px 5px;
   cursor: pointer;
@@ -29,14 +30,11 @@ const Toggle:FC<ITProps> = styled.button`
 
 // Example for LocalState Mutation using resolvers
 
-const LocalStateMutationToggle: FC<IProps> = ({id, isAnimating}) => (
-  <Mutation mutation={TOGGLE_ANIMATION} variables={{id}}>
-    {(toggleAnimation:any) => (
-      <Toggle
-        onClick={toggleAnimation}
-        isAnimating={isAnimating}
-      >
-        { isAnimating ? '🤸' : '🚶'} toggle
+const LocalStateMutationToggle: FC<IProps> = ({ id, isAnimating }) => (
+  <Mutation mutation={TOGGLE_ANIMATION} variables={{ id }}>
+    {(toggleAnimation: any) => (
+      <Toggle onClick={toggleAnimation} isAnimating={isAnimating}>
+        {isAnimating ? "🤸" : "🚶"} toggle
       </Toggle>
     )}
   </Mutation>

@@ -9,6 +9,7 @@ import {
   FeatureGroup,
   Rectangle
 } from "react-leaflet";
+
 const { BaseLayer, Overlay } = LayersControl;
 
 const position: [number, number] = [52.154, 5.295];
