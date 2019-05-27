@@ -29,6 +29,6 @@ export const resolvers = {
   //   isOn: () => false,
   // }
   Lamp: {
-    isOn: () => false
+    isOn: (): boolean => false
   }
 };

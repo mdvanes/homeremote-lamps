@@ -1,7 +1,11 @@
 import { gql } from "apollo-boost";
 import { Resolver } from "../Resolver.type";
 
-const toggleAnimation: Resolver = (_, variables, { cache, getCacheKey }) => {
+const toggleAnimation: Resolver = (
+  _,
+  variables,
+  { cache, getCacheKey }
+): null => {
   const id = getCacheKey({ __typename: "AnimationItem", id: variables.id });
   const fragment = gql`
     fragment animatingItem on AnimationItem {

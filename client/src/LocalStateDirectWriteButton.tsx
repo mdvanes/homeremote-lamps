@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 // import {ApolloConsumer, Query} from 'react-apollo';
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { gql } from "apollo-boost";
 import styled from "styled-components";
 
 const GET_LOGGER = gql`

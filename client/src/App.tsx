@@ -1,11 +1,12 @@
 import React, { FC, Fragment } from "react";
+import { gql } from "apollo-boost";
+import { Query } from "react-apollo";
+// @ts-ignore
 import logo from "./logo.svg";
 import "./App.css";
 import LampList from "./LampList";
 import LocalStateDirectWriteButton from "./LocalStateDirectWriteButton";
 import LocalStateMutationToggle from "./LocalStateMutationToggle";
-import { gql } from "apollo-boost";
-import { Query } from "react-apollo";
 import DeviceList from "./Components/DeviceList";
 import VendorMap from "./Components/VendorMap";
 
