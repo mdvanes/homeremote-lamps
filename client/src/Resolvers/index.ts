@@ -2,6 +2,7 @@ import toggleAnimation from "./Mutation/toggleAnimation";
 import toggleLamp from "./Mutation/toggleLamp";
 import devices from "./Query/devices";
 import vendors from "./Query/vendors";
+import showVendor from "./Mutation/showVendor";
 
 export const defaults = {
   animationItems: [
@@ -18,7 +19,8 @@ export const defaults = {
 export const resolvers = {
   Mutation: {
     toggleAnimation,
-    toggleLamp
+    toggleLamp,
+    showVendor
   },
   Query: {
     devices,

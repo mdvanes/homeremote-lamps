@@ -1,8 +1,7 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
 
 // eslint-disable-next-line no-unused-vars
 const clientSchemaExtensions = gql`
-
   "Indicates that the client should resolve the field value locally as part of a query, e.g. in a React component"
   directive @client on FIELD
 
@@ -10,29 +9,29 @@ const clientSchemaExtensions = gql`
     id: String
     isAnimating: Boolean
   }
-  
+
   type Device {
     name: String
     manufacturer: String
   }
-  
+
   type Location {
     lon: Float
     lat: Float
   }
-  
+
   type Vendor {
     name: String
     stock: [String]
     location: Location
   }
-  
+
   enum Country {
     NL
     BE
     LU
   }
-  
+
   extend type Query {
     "Client-only field that contains a list of animation items"
     animationItems: [AnimationItem]
@@ -41,13 +40,25 @@ const clientSchemaExtensions = gql`
     "Client-only field with a list of vendors for devices"
     vendors(countryCode: Country): [Vendor]
   }
-  
+
   scalar None
-  
+
+  input LocationInput {
+    lon: Float
+    lat: Float
+  }
+
+  input VendorInput {
+    name: String
+    stock: [String]
+    location: LocationInput
+  }
+
   extend type Mutation {
     toggleLamp(id: Int): None
+    showVendor(vendor: VendorInput): None
   }
-  
+
   extend type Lamp {
     isOn: Boolean
   }
