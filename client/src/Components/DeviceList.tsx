@@ -2,6 +2,7 @@ import React, { FC, ComponentType as Component, ComponentClass } from "react";
 
 import { OperationOption, withQuery } from "react-apollo";
 import { gql } from "apollo-boost";
+import styled from "styled-components";
 
 /** compose */
 interface ComponentEnhancer<TInner, TOuter> {
@@ -76,6 +77,27 @@ interface InnerProps {
 
 type Props = OuterProps & InnerProps;
 
+const StyledTable = styled.table`
+  border-collapse: collapsed;
+
+  thead td {
+    font-weight: bold;
+  }
+
+  td {
+    text-align: left;
+  }
+
+  thead tr td,
+  tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #222;
+  }
+
+  tr:hover td {
+    background-color: #ddd;
+  }
+`;
+
 /**
  * This example exists to test typing on apollo-boost/compose
  */
@@ -86,7 +108,7 @@ const DeviceList: FC<Props> = ({
 }): JSX.Element => (
   <>
     <h1>{title}</h1>
-    <table>
+    <StyledTable>
       <thead>
         <tr>
           <td>Device Name</td>
@@ -109,7 +131,7 @@ const DeviceList: FC<Props> = ({
             )
           )}
       </tbody>
-    </table>
+    </StyledTable>
   </>
 );
 
