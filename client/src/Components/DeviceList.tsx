@@ -3,6 +3,8 @@ import React, { FC, ComponentType as Component, ComponentClass } from "react";
 import { OperationOption, withQuery } from "react-apollo";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
+import VendorLink from "./VendorLink";
+import { Vendor } from "../Containers/withShowVendorMutation";
 
 /** compose */
 interface ComponentEnhancer<TInner, TOuter> {
@@ -43,16 +45,17 @@ export interface Device {
   manufacturer: string;
 }
 
-interface Location {
-  __typename?: "Location";
-  lon: number;
-  lat: number;
-}
-
 export enum Country {
   NL = "NL"
   // BE = "BE",
   // LU = "LU"
+}
+
+/* extracted to prevent dependency cycle
+interface Location {
+  __typename?: "Location";
+  lon: number;
+  lat: number;
 }
 
 export interface Vendor {
@@ -61,6 +64,7 @@ export interface Vendor {
   stock: string[];
   location: Location;
 }
+*/
 
 interface OuterProps {
   title: string;
@@ -125,7 +129,8 @@ const DeviceList: FC<Props> = ({
                 <td>{name}</td>
                 <td>{manufacturer}</td>
                 <td>
-                  {vendors && vendors.map((v): string => v.name).join(", ")}
+                  {vendors &&
+                    vendors.map((v): JSX.Element => <VendorLink vendor={v} />)}
                 </td>
               </tr>
             )

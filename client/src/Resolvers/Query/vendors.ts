@@ -1,5 +1,6 @@
 import { Resolver } from "../Resolver.type";
-import { Country, Vendor } from "../../Components/DeviceList";
+import { Country } from "../../Components/DeviceList";
+import { Vendor } from "../../Containers/withShowVendorMutation";
 
 const vendors: Resolver = (_, variables, { cache, getCacheKey }): Vendor[] => {
   // console.log("in Vendor Resolver", variables);
