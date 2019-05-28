@@ -21,7 +21,7 @@ const TOGGLE_ANIMATION = gql`
 `;
 
 const Toggle: FC<ToggleProps> = styled.button`
-  background-color: ${(props: ToggleProps): void =>
+  background-color: ${(props: ToggleProps): string =>
     props.isAnimating ? "#61dafb" : "#4d90fe"};
   border: none;
   border-radius: 0 0 5px 5px;
@@ -35,6 +35,7 @@ const LocalStateMutationToggle: FC<Props> = ({
   id,
   isAnimating
 }): JSX.Element => (
+  // @ts-ignore
   <Mutation mutation={TOGGLE_ANIMATION} variables={{ id }}>
     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
     {(toggleAnimation: any): JSX.Element => (
