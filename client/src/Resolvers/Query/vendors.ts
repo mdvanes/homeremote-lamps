@@ -12,8 +12,8 @@ const vendors: Resolver = (_, variables, { cache, getCacheKey }): Vendor[] => {
         stock: ["Switcheroo", "IrPlug"],
         location: {
           __typename: "Location",
-          lat: 1.23456,
-          lon: 1.24566
+          lat: 52.05668,
+          lon: 5.11049
         }
       },
       {
@@ -22,8 +22,8 @@ const vendors: Resolver = (_, variables, { cache, getCacheKey }): Vendor[] => {
         stock: ["IrPlug"],
         location: {
           __typename: "Location",
-          lat: 1.23456,
-          lon: 1.24566
+          lat: 51.70266,
+          lon: 5.28726
         }
       }
     ];

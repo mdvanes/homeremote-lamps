@@ -1,11 +1,12 @@
 import React, { FC } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import { withQuery } from "react-apollo";
+import { compose, withQuery } from "react-apollo";
 import { gql } from "apollo-boost";
 import VendorLayersControl from "./VendorLayersControl";
 import { Vendor } from "../Containers/withShowVendorMutation";
+import { withVendors } from "./DeviceList";
 
-const position: [number, number] = [52.08927, 5.11];
+const centerOfNL: [number, number] = [52.08927, 5.11];
 const zoom = 8;
 
 // NL 8/52.172/5.738
@@ -16,17 +17,26 @@ const zoom = 8;
 
 interface Props {
   showVendorQuery: {
-    showVendor: Vendor;
+    showVendor: string;
+  };
+  vendorsQuery: {
+    vendors: Vendor[];
   };
 }
 
 const VendorMap: FC<Props> = ({
-  showVendorQuery: { showVendor }
+  showVendorQuery: { showVendor },
+  vendorsQuery: { vendors }
 }): JSX.Element => {
-  console.log("showVendor=", showVendor);
+  const selectedVendor = showVendor
+    ? vendors.find((v): boolean => v.name === showVendor)
+    : null;
+  const position: [number, number] = selectedVendor
+    ? ((selectedVendor.location as unknown) as [number, number])
+    : centerOfNL;
   return (
     <div style={{ height: "400px", width: "400px", overflow: "hidden" }}>
-      <Map center={position} zoom={zoom}>
+      <Map center={centerOfNL} zoom={zoom}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -43,15 +53,18 @@ const VendorMap: FC<Props> = ({
 };
 
 // TODO fix ts-ignore
-export default withQuery(
-  gql`
-    query showVendorQuery {
-      showVendor @client
+export default compose(
+  withQuery(
+    gql`
+      query showVendorQuery {
+        showVendor @client
+      }
+    `,
+    {
+      name: "showVendorQuery"
     }
-  `,
-  {
-    name: "showVendorQuery"
-  }
+  ),
+  withVendors({})
 )(
   // @ts-ignore
   VendorMap
