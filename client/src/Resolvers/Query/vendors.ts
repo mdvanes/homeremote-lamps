@@ -19,7 +19,7 @@ const vendors: Resolver = (_, variables, { cache, getCacheKey }): Vendor[] => {
       {
         __typename: "Vendor",
         name: "HotRed",
-        stock: ["Switcheroo", "IrPlug"],
+        stock: ["IrPlug"],
         location: {
           __typename: "Location",
           lat: 1.23456,

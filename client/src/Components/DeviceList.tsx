@@ -107,7 +107,7 @@ const StyledTable = styled.table`
  */
 const DeviceList: FC<Props> = ({
   title,
-  devicesQuery,
+  devicesQuery: { devices },
   vendorsQuery: { vendors }
 }): JSX.Element => (
   <>
@@ -121,16 +121,21 @@ const DeviceList: FC<Props> = ({
         </tr>
       </thead>
       <tbody>
-        {devicesQuery &&
-          devicesQuery.devices &&
-          devicesQuery.devices.map(
+        {devices &&
+          devices.map(
             ({ name, manufacturer }: Device): JSX.Element => (
               <tr key={name}>
                 <td>{name}</td>
                 <td>{manufacturer}</td>
                 <td>
                   {vendors &&
-                    vendors.map((v): JSX.Element => <VendorLink key={v.name} vendor={v} />)}
+                    vendors
+                      .filter((v): boolean => v.stock.includes(name))
+                      .map(
+                        (v): JSX.Element => (
+                          <VendorLink key={v.name} vendor={v} />
+                        )
+                      )}
                 </td>
               </tr>
             )
@@ -206,6 +211,7 @@ function withVendors<TProps, TChildProps = {}>(
       query vendorsQuery($countryCode: Country) {
         vendors(countryCode: $countryCode) @client {
           name
+          stock
           location {
             lat
             lon
