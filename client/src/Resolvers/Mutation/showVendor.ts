@@ -2,7 +2,6 @@ import { Resolver } from "../Resolver.type";
 // import { Vendor } from "../../Containers/withShowVendorMutation";
 
 const showVendor: Resolver = (_, { vendorName }, { cache, getCacheKey }): null => {
-  console.log("in show vendor resolver", vendorName);
   try {
     // If variable `vendor` would have type Vendor, writing like this:
     // cache.writeData({
@@ -16,7 +15,6 @@ const showVendor: Resolver = (_, { vendorName }, { cache, getCacheKey }): null =
         showVendor: vendorName
       }
     });
-    console.log("after write data");
   } catch (ex) {
     console.log(ex);
   }
