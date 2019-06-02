@@ -1,5 +1,7 @@
 import React, { FC } from "react";
+import { MutationOptions } from "react-apollo";
 import styled from "styled-components";
+
 import withShowVendorMutation, {
   Vendor
 } from "../Containers/withShowVendorMutation";
@@ -7,9 +9,10 @@ import withShowVendorMutation, {
 interface OuterProps {
   vendor: Vendor;
 }
+export type Mutation = (_: MutationOptions) => void;
 
 interface Props extends OuterProps {
-  showVendorMutation: any; // MutationFn;
+  showVendorMutation: Mutation; // MutationFn;
   // mutate: MutationFn; // MutationFn<{}, { vendor: Vendor }>;
 }
 
@@ -22,7 +25,14 @@ const Button = styled.button`
 `;
 
 const VendorLink: FC<Props> = ({ vendor, showVendorMutation }): JSX.Element => (
-  <Button onClick={(): void => showVendorMutation({ vendor })}>
+  <Button
+    onClick={(): void =>
+      showVendorMutation({
+        variables: { vendorName: vendor.name },
+        refetchQueries: ["showVendorQuery"]
+      })
+    }
+  >
     {vendor.name}
   </Button>
 );

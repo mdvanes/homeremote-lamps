@@ -130,7 +130,7 @@ const DeviceList: FC<Props> = ({
                 <td>{manufacturer}</td>
                 <td>
                   {vendors &&
-                    vendors.map((v): JSX.Element => <VendorLink vendor={v} />)}
+                    vendors.map((v): JSX.Element => <VendorLink key={v.name} vendor={v} />)}
                 </td>
               </tr>
             )

@@ -21,7 +21,7 @@ const clientSchemaExtensions = gql`
   }
 
   type Vendor {
-    name: String
+    name: ID
     stock: [String]
     location: Location
   }
@@ -39,24 +39,16 @@ const clientSchemaExtensions = gql`
     devices: [Device]
     "Client-only field with a list of vendors for devices"
     vendors(countryCode: Country): [Vendor]
+    ""
+    showVendor: Vendor
   }
 
   scalar None
 
-  input LocationInput {
-    lon: Float
-    lat: Float
-  }
-
-  input VendorInput {
-    name: String
-    stock: [String]
-    location: LocationInput
-  }
-
   extend type Mutation {
     toggleLamp(id: Int): None
-    showVendor(vendor: VendorInput): None
+    "Sets the Vendor to be shown on the map"
+    showVendor(vendorName: String): None
   }
 
   extend type Lamp {

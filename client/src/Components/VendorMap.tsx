@@ -1,6 +1,9 @@
 import React, { FC } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { withQuery } from "react-apollo";
+import { gql } from "apollo-boost";
 import VendorLayersControl from "./VendorLayersControl";
+import { Vendor } from "../Containers/withShowVendorMutation";
 
 const position: [number, number] = [52.08927, 5.11];
 const zoom = 8;
@@ -11,7 +14,16 @@ const zoom = 8;
 
 // Example: https://codepen.io/PaulLeCam/pen/gzVmGw
 
-const VendorMap: FC = (): JSX.Element => {
+interface Props {
+  showVendorQuery: {
+    showVendor: Vendor;
+  };
+}
+
+const VendorMap: FC<Props> = ({
+  showVendorQuery: { showVendor }
+}): JSX.Element => {
+  console.log("showVendor=", showVendor);
   return (
     <div style={{ height: "400px", width: "400px", overflow: "hidden" }}>
       <Map center={position} zoom={zoom}>
@@ -30,4 +42,17 @@ const VendorMap: FC = (): JSX.Element => {
   );
 };
 
-export default VendorMap;
+// TODO fix ts-ignore
+export default withQuery(
+  gql`
+    query showVendorQuery {
+      showVendor @client
+    }
+  `,
+  {
+    name: "showVendorQuery"
+  }
+)(
+  // @ts-ignore
+  VendorMap
+);
