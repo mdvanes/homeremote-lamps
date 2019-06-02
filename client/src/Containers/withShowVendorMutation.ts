@@ -42,8 +42,8 @@ interface ShowVendorMutationVariables {
 const withShowVendorMutation = () =>
   withMutation(
     gql`
-      mutation showVendorMutation($vendor: VendorInput) {
-        showVendor(vendor: $vendor) @client
+      mutation showVendorMutation($vendorName: String) {
+        showVendor(vendorName: $vendorName) @client
       }
     `,
     {

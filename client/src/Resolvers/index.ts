@@ -13,7 +13,8 @@ export const defaults = {
       isAnimating: false
     }
   ],
-  logger: "Initial logger"
+  logger: "Initial logger",
+  showVendor: null
 };
 
 export const resolvers = {
