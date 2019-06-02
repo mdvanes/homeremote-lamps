@@ -198,7 +198,7 @@ function withDevicesList<TProps, TChildProps = {}>(
 interface VendorsQueryVariables {
   countryCode: Country;
 }
-function withVendors<TProps, TChildProps = {}>(
+export function withVendors<TProps, TChildProps = {}>(
   operationOptions: OperationOption<
     TProps,
     Vendor[],
